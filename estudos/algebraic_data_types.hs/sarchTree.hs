@@ -24,14 +24,15 @@ isNode ::  Tree a -> Bool
 isNode Nil = False
 isNode _ = True
 
-leftSub ::  Tree a -> Tree a
+-- leftSub ::  Tree a -> Tree a
 
 
-rightSub ::  Tree a -> Tree a
+-- rightSub ::  Tree a -> Tree a
 
-treeVal ::  Tree a -> a
-insTre ::  Ord a => a -> Tree a -> Tree a
+-- treeVal ::  Tree a -> a
 
-delete ::  Ord a => Tree a -> Tree a 
+-- insTre ::  Ord a => a -> Tree a -> Tree a
 
-minTree ::  Ord a => Tree a -> Maybe a
+-- delete ::  Ord a => Tree a -> Tree a 
+
+-- minTree ::  Ord a => Tree a -> Maybe a

@@ -31,10 +31,12 @@ maxFour1 a b c d
     | c >= d = c 
     | otherwise = d
 
--- consertar   
 maxFour2 :: Integer -> Integer -> Integer -> Integer -> Integer
-maxFour2 a b c d = a
-    
+maxFour2 a b c d = max a (max b (max c d))
+
+maxFour3 :: Integer -> Integer -> Integer -> Integer -> Integer
+maxFour3 a b c d = max a (maxThree b c d)
+
 quantosIguais :: Integer -> Integer -> Integer -> Integer
 quantosIguais x y z 
     | (x == y && x == z) || (y == x && y == z) || (z==x && z==y) = 3
@@ -50,4 +52,75 @@ sumTo n
     | n == 0 = 0
     | n > 0 = n + sumTo (n-1)
 
--- potencia :: Integer -> Integer -> Integer
+potencia :: Integer -> Integer -> Integer
+potencia n k 
+    | k == 0 = 1
+    | n > 1 =  n * potencia n (k-1)
+
+
+binomialCoefficients :: Integer -> Integer -> Integer
+binomialCoefficients n 0 = 1
+binomialCoefficients 0 k = 1
+binomialCoefficients n k = binomialCoefficients (n-1) k + binomialCoefficients (n-1) (k-1)
+
+tribonacci :: Integer -> Integer
+tribonacci n 
+    | n == 1  = 1
+    | n == 2 = 1
+    | n == 3 = 2
+    | n > 3 = tribonacci (n-1) + tribonacci (n-2) + tribonacci (n-3)
+
+-- tribStep :: (Integer,Integer,Integer) -> (Integer,Integer,Integer)
+-- tribStep (u,v,w) = (v,w,v+w)
+
+-- tribTriple :: Integer -> (Integer,Integer,Integer)
+-- tribTriple n
+--     | n == 1 = 1
+--     | n == 2 = 1
+--     | n == 3 = 2
+--     | n > 0 = tribStep (tribTriple(n-1))
+
+-- fastTrib :: Integer -> Integer 
+-- fastTrib n = fstTriple (tribTriple n)
+
+addEspacos :: Int -> String
+addEspacos n 
+    | n == 0 = ""
+    | n > 0 = " " ++ addEspacos (n - 1)
+
+paraDireita :: Int -> String -> String
+paraDireita n str = addEspacos n ++ str
+
+cabecalho :: String
+cabecalho = "Semana    Vendas"
+
+vendas :: Integer -> Integer
+vendas n 
+    | n == 0 = 12
+    | n == 1 = 14
+    | n == 2 = 15
+
+totalVendas :: Integer -> Integer
+totalVendas n 
+    | n ==  0 = vendas 0
+    | n > 0 = vendas n + totalVendas (n-1)
+
+media :: Integer -> Double
+media n 
+    | n == 0 = totalVendas 0 
+    | n > 0 = totalVendas n / (n + 1)
+
+imprimeSemanas :: Integer -> String
+imprimeSemanas n 
+    | n == 0 = show 0
+    | n > 0 = show n
+
+-- imprimeTotal :: Integer -> String
+ 
+-- imprimeMedia :: Integer -> String
+
+imprimeTabela :: Int -> String
+imprimeTabela n = cabecalho
+                ++ imprimeSemanas n
+                ++ imprimeTotal n
+                ++ imprimeMedia n
