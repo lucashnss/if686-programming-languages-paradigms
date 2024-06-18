@@ -53,9 +53,8 @@ sumTo n
     | n > 0 = n + sumTo (n-1)
 
 potencia :: Integer -> Integer -> Integer
-potencia n k 
-    | k == 0 = 1
-    | n > 1 =  n * potencia n (k-1)
+potencia _ 0 = 1
+potencia n k = n * potencia n (k-1)
 
 
 binomialCoefficients :: Integer -> Integer -> Integer
@@ -94,33 +93,20 @@ paraDireita n str = addEspacos n ++ str
 cabecalho :: String
 cabecalho = "Semana    Vendas"
 
-vendas :: Integer -> Integer
+vendas :: Integer -> Double
 vendas n 
     | n == 0 = 12
     | n == 1 = 14
     | n == 2 = 15
+    | otherwise = 0
 
-totalVendas :: Integer -> Integer
+totalVendas :: Integer -> Double
 totalVendas n 
     | n ==  0 = vendas 0
     | n > 0 = vendas n + totalVendas (n-1)
+    | otherwise = 0
 
 media :: Integer -> Double
 media n 
     | n == 0 = totalVendas 0 
-    | n > 0 = totalVendas n / (n + 1)
-
-imprimeSemanas :: Integer -> String
-imprimeSemanas n 
-    | n == 0 = show 0
-    | n > 0 = show n
-
--- imprimeTotal :: Integer -> String
- 
--- imprimeMedia :: Integer -> String
-
-imprimeTabela :: Int -> String
-imprimeTabela n = cabecalho
-                ++ imprimeSemanas n
-                ++ imprimeTotal n
-                ++ imprimeMedia n
+    | n > 0 = totalVendas n / fromIntegral (n + 1)
