@@ -161,3 +161,4 @@ maxVendas :: Int -> Int
 maxVendas n
   | n == 0 = vendas 0
   | otherwise = max' (maxVendas(n-1)) (vendas n)
+  
