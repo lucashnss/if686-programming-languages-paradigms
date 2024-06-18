@@ -69,18 +69,21 @@ tribonacci n
     | n == 3 = 2
     | n > 3 = tribonacci (n-1) + tribonacci (n-2) + tribonacci (n-3)
 
--- tribStep :: (Integer,Integer,Integer) -> (Integer,Integer,Integer)
--- tribStep (u,v,w) = (v,w,v+w)
+tribStep :: (Integer,Integer,Integer) -> (Integer,Integer,Integer)
+tribStep (u,v,w) = (v,w,u+v+w)
 
--- tribTriple :: Integer -> (Integer,Integer,Integer)
--- tribTriple n
---     | n == 1 = 1
---     | n == 2 = 1
---     | n == 3 = 2
---     | n > 0 = tribStep (tribTriple(n-1))
+tribTriple :: Integer -> (Integer,Integer,Integer)
+tribTriple n
+     | n == 1 = (1,1,2)
+     | n == 2 = (1,2,4)
+     | n > 2 = tribStep (tribTriple(n-1))
 
--- fastTrib :: Integer -> Integer 
--- fastTrib n = fstTriple (tribTriple n)
+fastTribonacci :: Integer -> Integer 
+fastTribonacci n 
+    | n == 1 = 1
+    | n == 2 = 1
+    | n == 3 = 2
+    | n > 2 = let (_,_,result) = tribTriple (n-2) in result
 
 addEspacos :: Int -> String
 addEspacos n 
