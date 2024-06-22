@@ -4,6 +4,7 @@ expNE n k
   | k == 0 = 1
   | k > 0 = n * expNE n (k-1)
 
+main :: IO ()
 main = do
    x <- readLn
    y <- readLn

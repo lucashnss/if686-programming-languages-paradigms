@@ -17,6 +17,7 @@ numDiv n m
 
 
 
+main :: IO ()
 main = do
    a <- readLn
    b <- readLn
