@@ -56,10 +56,60 @@ diagPrincipal l = reverse (extraiPrincipal l((length l)-1))
 
 -- Questao 5 
 
+type Codigo = Integer
+data Voto = Presidente Codigo | Senador Codigo | Deputado Codigo | Branco 
+            deriving (Show)
+type Urna = [Voto]
+type Apuracao = [(Voto,Integer)]
+
+instance Eq Voto where
+    Branco == Branco = True 
+    Presidente p1 == Presidente p2 = p1 == p2
+    Senador s1 == Senador s2 = s1 == s2
+    Deputado d1 == Deputado d2 = d1 == d2
+    _ == _ = False
+
+umaUrna :: [Voto]
+umaUrna= [(Presidente 1), (Presidente 1) , 
+ (Senador 1),(Senador 1),(Senador 1),
+ (Presidente 2), (Presidente 3),
+ (Deputado 1), (Deputado 1),(Deputado 1),
+ (Deputado 1), (Deputado 1),(Deputado 1), 
+ (Deputado 1), (Deputado 1),(Deputado 1),
+ Branco, Branco, (Presidente 1)
+ ]
+
+umaApuracao :: [(Voto, Int)]
+umaApuracao = [((Presidente 1), 1), ((Senador 1),3)]
+
+totalVotos :: Urna -> Voto -> Int 
+totalVotos [] _ = 0
+totalVotos (x:xs) v 
+    | x == v = 1 + totalVotos xs v 
+    | otherwise = totalVotos xs v
+
+apurar :: Urna -> Apuracao -> Apuracao
+apurar (v:[]) ap = atualizarApuracaoVoto v ap
+apurar (v:vs) ap = apurar vs (atualizarApuracaoVoto v ap)     
+
+apurar2 [] = []
+apurar2 (x:xs) = (x, 1 + totalVotos xs x): apurar2 (filter (/=x) xs) 
+
+atualizarApuracaoVoto voto ap
+ | votoRegistrado ap voto = atualizarApuracao ap voto
+ | otherwise = ap ++ [(voto,1)]
 
 
+atualizarApuracao :: [(Voto, Integer)] -> Voto -> [(Voto, Integer)]
+atualizarApuracao ([]) voto = []
+atualizarApuracao (x:xs) voto
+  | fst(x) == voto = ((voto, (snd x) + 1)):xs
+  | otherwise = x: atualizarApuracao xs voto
 
-
+  
+votoRegistrado :: [(Voto, Integer)] -> Voto -> Bool
+votoRegistrado [] voto = False
+votoRegistrado (x:xs) voto = fst(x) == voto || votoRegistrado xs voto
 
 -- Questao 6
 data Pilha t = Pilha [t] | PilhaVazia
