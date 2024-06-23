@@ -12,3 +12,21 @@
 -- primosN :: Int -> [Int]
 -- Que retorna o resultado da primeira função, primos, para uma lista de 1 a n.
 
+naoDivisor :: Int -> [Int] -> Bool
+naoDivisor _ [] = True
+naoDivisor x (y:ys)
+    | y `mod` x == 0 = False
+    | otherwise = naoDivisor x ys 
+
+primos :: [Int] -> [Int]
+primos [] = []
+primos (x:xs)
+    | naoDivisor x xs = x: primos xs 
+    | otherwise = primos xs
+
+primosN :: Int -> [Int]
+primosN n = primos [1..n]
+
+
+
+main = interact $ show . primosN . (read :: String -> Int)
