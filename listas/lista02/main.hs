@@ -83,7 +83,7 @@ fastTribonacci n
     | n == 1 = 1
     | n == 2 = 1
     | n == 3 = 2
-    | n > 2 = let (_,_,result) = tribTriple (n-2) in result
+    | n > 3 = let (_,_,result) = tribTriple (n-2) in result
 
 addEspacos :: Int -> String
 addEspacos n 
