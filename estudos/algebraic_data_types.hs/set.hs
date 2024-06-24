@@ -72,10 +72,10 @@ subs (x:xs) (y:ys)
     | x > y = subS (x:xs) ys
 
 eqSet :: Eq a => Set a -> Set a -> Bool 
-eqSet Set xs == Set ys = xs == ys 
+eqSet (Set xs) (Set ys) = xs == ys 
 
 leqSet :: Ord a => Set a -> Set a -> Bool 
-leqSet Set xs Set ys = xs <= ys 
+leqSet (Set xs) (Set ys) = xs <= ys 
 
 makeSet :: Ord a => [a] -> Set a 
 makeSet = Set . remDumps . sort 
