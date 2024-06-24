@@ -16,6 +16,8 @@ module Set (
 ) where
 
 import Data.List hiding (union)
+import Data.Tuple (swap)
+import Data.Text.Array (new)
 
 newtype Set a = Set [a]
 
@@ -145,3 +147,37 @@ limit f x
     | otherwise = limit f next 
         where 
             next = f x 
+
+-- Graphs
+
+connect :: Ord a => Relation a -> Relation a 
+connect rel = clos `inter` solc 
+              where 
+                    clos = tClosure rel
+                    solc = inverse clos
+
+inverse :: Ord a => Relation a -> Relation a 
+inverse = mapSet swap 
+            where 
+                swap (x,y) = (y,x)
+
+classes :: Ord a => Relation a -> Set (Set a)
+classes rel 
+    = limit (addImages rel) start 
+        where 
+            start = mapSet sing (eles rel)
+
+eles :: Ord a => Relation a -> Set a 
+eles rel = mapSet fst rel `union` mapSet snd rel
+
+addImages :: Ord a => Relation a -> Set (Set a) -> Set (Set a)
+addImages rel = mapSet (addImage rel)
+
+newDescs :: Ord a => Relation a -> Set a -> a -> Set a 
+newDescs rel st v = 
+
+flatten :: Set a -> [a]
+flatten (Set xs) = xs 
+
+findDescs :: Ord a => Relation a -> [a] -> a -> [a]
+findDescs 
