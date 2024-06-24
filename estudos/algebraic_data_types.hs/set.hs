@@ -109,7 +109,7 @@ card (Set xs) = length xs
 type Relation a = Set (a,a)
 
 image :: Ord a => Relation a -> a -> Set a 
-image rel val = mapSet snd (filterSet ((==val).fst) val)
+image rel val = mapSet snd (filterSet ((==val).fst) rel)
 
 setImage :: Ord a => Relation a -> Set a -> Set a 
 setImage rel = unionSet . mapSet (image rel)
