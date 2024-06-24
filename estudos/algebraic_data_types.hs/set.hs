@@ -172,12 +172,3 @@ eles rel = mapSet fst rel `union` mapSet snd rel
 
 addImages :: Ord a => Relation a -> Set (Set a) -> Set (Set a)
 addImages rel = mapSet (addImage rel)
-
-newDescs :: Ord a => Relation a -> Set a -> a -> Set a 
-newDescs rel st v = 
-
-flatten :: Set a -> [a]
-flatten (Set xs) = xs 
-
-findDescs :: Ord a => Relation a -> [a] -> a -> [a]
-findDescs 
